@@ -2,38 +2,41 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>NLP LAB PROGRAMS – MVJ22CS72</title>
-  <meta name="description" content="Reference and copy tool for Natural Language Processing Lab Programs - MVJ22CS72, MVJ College of Engineering.">
+  <meta name="description" content="Mobile-friendly offline reference and copy tool for Natural Language Processing Lab Programs - MVJ22CS72, MVJ College of Engineering.">
+  <meta name="theme-color" content="#ffffff">
   <style>
     :root {
       --bg-page: #f8fafc;
       --bg-surface: #ffffff;
       --bg-nav: #ffffff;
       --border-subtle: #e2e8f0;
-      --border-focus: #3b82f6;
+      --border-focus: #2563eb;
       --text-main: #0f172a;
       --text-muted: #475569;
       --text-light: #64748b;
       --primary: #2563eb;
       --primary-hover: #1d4ed8;
+      --primary-active: #1e40af;
       --primary-subtle: #eff6ff;
       --primary-border: #bfdbfe;
       --code-bg: #0f172a;
       --code-header-bg: #1e293b;
       --code-text: #e2e8f0;
-      --code-comment: #94a3b8;
-      --output-bg: #f1f5f9;
+      --output-bg: #f8fafc;
       --output-border: #cbd5e1;
       --output-text: #1e293b;
       --success: #16a34a;
       --success-bg: #dcfce7;
       --sidebar-width: 275px;
-      --header-height: 64px;
+      --header-height: 60px;
+      --bottom-bar-height: 58px;
       --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', Consolas, Monaco, 'Courier New', monospace;
       --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
       --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
       --radius-sm: 6px;
       --radius-md: 10px;
       --radius-lg: 14px;
@@ -43,11 +46,14 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      -webkit-tap-highlight-color: transparent;
     }
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: calc(var(--header-height) + 20px);
+      scroll-padding-top: calc(var(--header-height) + 16px);
+      width: 100%;
+      overflow-x: hidden;
     }
 
     body {
@@ -56,9 +62,12 @@
       color: var(--text-main);
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
+      width: 100%;
+      overflow-x: hidden;
+      min-height: 100vh;
     }
 
-    /* Header */
+    /* TOP HEADER */
     .top-header {
       position: sticky;
       top: 0;
@@ -69,59 +78,107 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 1.5rem;
+      padding: 0 1.25rem;
       box-shadow: var(--shadow-sm);
+      width: 100%;
     }
 
     .header-brand {
       display: flex;
       align-items: center;
       gap: 0.75rem;
+      min-width: 0;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      min-width: 44px;
+      min-height: 44px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      color: var(--text-main);
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.15s ease;
+    }
+
+    .menu-toggle:active {
+      background: #f1f5f9;
+    }
+
+    .header-titles {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .header-title-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: nowrap;
+    }
+
+    .header-titles h1 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .badge-roll {
       background: #1e293b;
       color: #ffffff;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 700;
       letter-spacing: 0.05em;
-      padding: 0.25rem 0.6rem;
+      padding: 0.2rem 0.55rem;
       border-radius: var(--radius-sm);
       display: inline-block;
+      flex-shrink: 0;
     }
 
-    .header-titles h1 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--text-main);
-      line-height: 1.2;
-    }
-
-    .header-titles p {
-      font-size: 0.8rem;
+    .header-subtitle {
+      font-size: 0.75rem;
       color: var(--text-muted);
+      line-height: 1.2;
+      margin-top: 1px;
     }
 
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.5rem;
+      flex-shrink: 0;
     }
 
+    /* BUTTONS */
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
+      gap: 0.45rem;
       font-size: 0.85rem;
       font-weight: 600;
-      padding: 0.5rem 0.9rem;
+      padding: 0.55rem 0.9rem;
+      min-height: 40px;
       border-radius: var(--radius-sm);
       border: 1px solid transparent;
       cursor: pointer;
       transition: all 0.15s ease-in-out;
       font-family: var(--font-sans);
       white-space: nowrap;
+      user-select: none;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
     }
 
     .btn-primary {
@@ -133,8 +190,12 @@
       background-color: var(--primary-hover);
     }
 
+    .btn-primary:active {
+      background-color: var(--primary-active);
+    }
+
     .btn-outline {
-      background: transparent;
+      background: var(--bg-surface);
       border-color: var(--border-subtle);
       color: var(--text-muted);
     }
@@ -145,25 +206,20 @@
       border-color: #cbd5e1;
     }
 
-    .menu-toggle {
-      display: none;
-      background: transparent;
-      border: 1px solid var(--border-subtle);
-      padding: 0.4rem;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      color: var(--text-main);
+    .btn-outline:active {
+      background: #e2e8f0;
     }
 
-    /* App Layout */
+    /* APP LAYOUT */
     .app-layout {
       display: flex;
       min-height: calc(100vh - var(--header-height));
       max-width: 1560px;
       margin: 0 auto;
+      width: 100%;
     }
 
-    /* Sidebar Navigation */
+    /* SIDEBAR NAVIGATION (Desktop & Mobile Drawer) */
     .sidebar {
       width: var(--sidebar-width);
       flex-shrink: 0;
@@ -173,7 +229,36 @@
       top: var(--header-height);
       height: calc(100vh - var(--header-height));
       overflow-y: auto;
-      padding: 1.25rem 1rem 2rem 1rem;
+      padding: 1.25rem 0.85rem 2rem 0.85rem;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .sidebar-header-mobile {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 0.5rem 1rem 0.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 0.75rem;
+    }
+
+    .sidebar-header-mobile h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .drawer-close-btn {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      min-width: 44px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-muted);
     }
 
     .sidebar-section-title {
@@ -190,14 +275,14 @@
     }
 
     .nav-group {
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.65rem;
     }
 
     .nav-group-title {
       font-size: 0.825rem;
       font-weight: 700;
       color: var(--text-main);
-      padding: 0.35rem 0.5rem;
+      padding: 0.4rem 0.5rem;
       display: flex;
       align-items: center;
       gap: 0.4rem;
@@ -205,18 +290,24 @@
 
     .nav-list {
       list-style: none;
-      padding-left: 0.5rem;
+      padding-left: 0.25rem;
+    }
+
+    .nav-item {
+      margin-bottom: 2px;
     }
 
     .nav-item a {
-      display: block;
-      padding: 0.35rem 0.5rem;
-      font-size: 0.825rem;
+      display: flex;
+      align-items: center;
+      padding: 0.55rem 0.65rem;
+      font-size: 0.85rem;
       color: var(--text-muted);
       text-decoration: none;
       border-radius: var(--radius-sm);
-      transition: all 0.15s ease;
+      transition: background 0.15s ease, color 0.15s ease;
       line-height: 1.35;
+      min-height: 42px;
     }
 
     .nav-item a:hover {
@@ -230,33 +321,59 @@
       font-weight: 600;
     }
 
-    /* Main Content Area */
+    /* BACKDROP FOR MOBILE DRAWER */
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(2px);
+      z-index: 55;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+
+    .drawer-backdrop.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* MAIN CONTENT AREA */
     .main-content {
       flex: 1;
       min-width: 0;
-      padding: 1.75rem 2rem;
+      padding: 1.5rem 1.75rem 2.5rem 1.75rem;
+      width: 100%;
     }
 
-    /* Controls Bar: Search & Global Controls */
+    /* CONTROLS BAR: SEARCH, COPY ALL & VIEW CONTROLS */
     .controls-bar {
       display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1.75rem;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-bottom: 1.5rem;
       background: var(--bg-surface);
-      padding: 0.9rem 1.25rem;
+      padding: 1rem 1.25rem;
       border-radius: var(--radius-md);
       border: 1px solid var(--border-subtle);
       box-shadow: var(--shadow-sm);
+      width: 100%;
+    }
+
+    .controls-top-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
     }
 
     .search-container {
       position: relative;
       flex: 1;
-      max-width: 480px;
-      min-width: 250px;
+      min-width: 240px;
+      width: 100%;
     }
 
     .search-icon {
@@ -272,8 +389,9 @@
 
     .search-input {
       width: 100%;
-      padding: 0.55rem 0.85rem 0.55rem 2.4rem;
-      font-size: 0.9rem;
+      min-height: 44px;
+      padding: 0.6rem 2.5rem 0.6rem 2.4rem;
+      font-size: 1rem;
       font-family: var(--font-sans);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-sm);
@@ -286,24 +404,38 @@
     .search-input:focus {
       background-color: #ffffff;
       border-color: var(--border-focus);
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
     }
 
     .clear-search-btn {
       position: absolute;
-      right: 0.75rem;
+      right: 0.5rem;
       top: 50%;
       transform: translateY(-50%);
       background: none;
       border: none;
+      min-width: 38px;
+      min-height: 38px;
+      display: none;
+      align-items: center;
+      justify-content: center;
       color: var(--text-light);
       cursor: pointer;
-      display: none;
-      padding: 2px;
+      border-radius: 4px;
     }
 
-    .clear-search-btn:hover {
+    .clear-search-btn:active {
       color: var(--text-main);
+      background: #e2e8f0;
+    }
+
+    .controls-actions-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
     }
 
     .view-actions {
@@ -312,71 +444,91 @@
       gap: 0.5rem;
     }
 
+    .view-actions .btn {
+      min-height: 40px;
+    }
+
+    .copy-all-mobile-wrapper {
+      display: none;
+      width: 100%;
+    }
+
+    .copy-all-btn-full {
+      width: 100%;
+      min-height: 46px;
+      font-size: 0.925rem;
+    }
+
+    /* NO RESULTS */
     .no-results-box {
       display: none;
       background: var(--bg-surface);
       border: 1px dashed var(--border-subtle);
-      padding: 3rem 1.5rem;
+      padding: 2.5rem 1.25rem;
       text-align: center;
       border-radius: var(--radius-md);
       margin-top: 1rem;
     }
 
     .no-results-box h3 {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       color: var(--text-main);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.35rem;
     }
 
     .no-results-box p {
       color: var(--text-muted);
-      font-size: 0.9rem;
+      font-size: 0.875rem;
     }
 
-    /* Program Section Groups */
+    /* PROGRAM SECTION GROUPS */
     .program-group {
-      margin-bottom: 2.5rem;
+      margin-bottom: 2.25rem;
+      width: 100%;
     }
 
     .program-group-header {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      padding-bottom: 0.75rem;
-      margin-bottom: 1.25rem;
+      gap: 0.65rem;
+      padding-bottom: 0.6rem;
+      margin-bottom: 1rem;
       border-bottom: 2px solid var(--border-subtle);
+      width: 100%;
     }
 
     .program-group-badge {
       background: var(--primary);
       color: white;
       font-weight: 700;
-      font-size: 0.85rem;
-      padding: 0.25rem 0.7rem;
+      font-size: 0.8rem;
+      padding: 0.25rem 0.65rem;
       border-radius: var(--radius-sm);
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .program-group-title {
-      font-size: 1.25rem;
+      font-size: 1.15rem;
       font-weight: 700;
       color: var(--text-main);
     }
 
-    /* Program Card */
+    /* PROGRAM CARD */
     .program-card {
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
       box-shadow: var(--shadow-sm);
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
       overflow: hidden;
       transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      width: 100%;
     }
 
     .program-card:hover {
       border-color: #cbd5e1;
-      box-shadow: var(--shadow-md);
     }
 
     .program-card.highlight {
@@ -384,36 +536,49 @@
       box-shadow: 0 0 0 2px var(--primary-border);
     }
 
-    /* Card Header */
+    /* CARD HEADER */
     .card-header {
-      padding: 1rem 1.25rem;
+      padding: 0.9rem 1.1rem;
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       justify-content: space-between;
-      gap: 1rem;
+      gap: 0.75rem;
       background: var(--bg-surface);
       cursor: pointer;
       user-select: none;
+      width: 100%;
+      min-height: 52px;
+      transition: background-color 0.15s ease;
+    }
+
+    .card-header:hover {
+      background-color: #fafbfc;
+    }
+
+    .card-header:active {
+      background-color: #f1f5f9;
     }
 
     .card-title-area {
       display: flex;
       align-items: flex-start;
-      gap: 0.75rem;
+      gap: 0.65rem;
       flex: 1;
+      min-width: 0;
     }
 
     .prog-pill {
       font-family: var(--font-mono);
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
       color: var(--primary);
       background: var(--primary-subtle);
       border: 1px solid var(--primary-border);
-      padding: 0.2rem 0.55rem;
+      padding: 0.2rem 0.5rem;
       border-radius: var(--radius-sm);
       white-space: nowrap;
-      margin-top: 2px;
+      margin-top: 1px;
+      flex-shrink: 0;
     }
 
     .prog-pill-alt {
@@ -424,20 +589,30 @@
 
     .prog-text {
       flex: 1;
+      min-width: 0;
     }
 
     .prog-title {
-      font-size: 1.05rem;
+      font-size: 0.95rem;
       font-weight: 700;
       color: var(--text-main);
-      margin-bottom: 0.2rem;
+      margin-bottom: 0.15rem;
       line-height: 1.35;
+      word-break: break-word;
     }
 
     .prog-desc {
-      font-size: 0.85rem;
+      font-size: 0.825rem;
       color: var(--text-muted);
       line-height: 1.4;
+      display: block;
+    }
+
+    .program-card.collapsed .prog-desc {
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .card-header-actions {
@@ -453,38 +628,43 @@
       color: var(--text-light);
       display: flex;
       align-items: center;
-      padding: 0.25rem;
+      justify-content: center;
+      min-width: 36px;
+      min-height: 36px;
       cursor: pointer;
       transition: transform 0.2s ease;
+      border-radius: 4px;
     }
 
     .program-card.collapsed .collapse-chevron {
       transform: rotate(-90deg);
     }
 
-    /* Card Body (Collapsible Content) */
+    /* CARD BODY */
     .card-body {
       border-top: 1px solid var(--border-subtle);
-      padding: 1.25rem;
+      padding: 1.1rem;
       background: #fafafa;
+      width: 100%;
     }
 
     .program-card.collapsed .card-body {
       display: none;
     }
 
-    /* Code Block Wrapper */
+    /* CODE CONTAINER & BLOCKS */
     .code-container {
       background: var(--code-bg);
       border-radius: var(--radius-sm);
       overflow: hidden;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1rem;
       border: 1px solid #1e293b;
+      width: 100%;
     }
 
     .code-bar {
       background: var(--code-header-bg);
-      padding: 0.5rem 1rem;
+      padding: 0.45rem 0.85rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -493,7 +673,7 @@
 
     .code-lang-label {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 600;
       color: #94a3b8;
       display: flex;
@@ -502,26 +682,123 @@
     }
 
     .code-lang-dot {
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: #38bdf8;
+      display: inline-block;
     }
 
+    pre.code-block {
+      margin: 0;
+      padding: 0.85rem 1rem;
+      background: var(--code-bg);
+      color: var(--code-text);
+      font-family: var(--font-mono);
+      font-size: 13.5px;
+      line-height: 1.55;
+      overflow-x: auto;
+      tab-size: 4;
+      white-space: pre;
+      -webkit-overflow-scrolling: touch;
+      width: 100%;
+    }
+
+    /* STEMMING CHECK HIGHLIGHT BOX */
+    .stemming-check-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .stemming-check-title {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #1d4ed8;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .stemming-check-item {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: #1e293b;
+      padding: 0.2rem 0;
+    }
+
+    .stemming-check-item code {
+      background: #ffffff;
+      border: 1px solid #dbeafe;
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      color: #1e40af;
+    }
+
+    .stemming-check-item strong {
+      color: #047857;
+    }
+
+    /* EXPECTED OUTPUT BLOCK */
+    .output-container {
+      background: var(--output-bg);
+      border: 1px solid var(--output-border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      margin-bottom: 1rem;
+      width: 100%;
+    }
+
+    .output-bar {
+      background: #e2e8f0;
+      padding: 0.4rem 0.85rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    pre.output-block {
+      margin: 0;
+      padding: 0.75rem 0.85rem;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--output-text);
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      -webkit-overflow-scrolling: touch;
+      width: 100%;
+    }
+
+    /* COPY BUTTON */
     .copy-btn {
       background: #334155;
       color: #f8fafc;
       border: 1px solid #475569;
-      padding: 0.35rem 0.75rem;
-      font-size: 0.75rem;
+      padding: 0.5rem 0.85rem;
+      font-size: 0.825rem;
       font-weight: 600;
-      border-radius: 4px;
+      border-radius: var(--radius-sm);
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
+      justify-content: center;
+      gap: 0.45rem;
       transition: all 0.15s ease;
       font-family: var(--font-sans);
+      min-height: 42px;
+      user-select: none;
     }
 
     .copy-btn:hover {
@@ -529,67 +806,86 @@
       color: #ffffff;
     }
 
+    .copy-btn:active {
+      transform: scale(0.98);
+      background: #1e293b;
+    }
+
     .copy-btn.copied {
-      background: var(--success);
-      border-color: var(--success);
-      color: #ffffff;
+      background: var(--success) !important;
+      border-color: var(--success) !important;
+      color: #ffffff !important;
     }
 
-    pre.code-block {
-      margin: 0;
-      padding: 1rem 1.25rem;
-      background: var(--code-bg);
-      color: var(--code-text);
-      font-family: var(--font-mono);
-      font-size: 0.875rem;
-      line-height: 1.6;
-      overflow-x: auto;
-      tab-size: 4;
-      white-space: pre;
+    .card-footer-action {
+      margin-top: 0.75rem;
     }
 
-    /* Expected Output Block */
-    .output-container {
-      background: var(--output-bg);
-      border: 1px solid var(--output-border);
-      border-radius: var(--radius-sm);
-      overflow: hidden;
+    .copy-btn-mobile-full {
+      width: 100%;
+      min-height: 44px;
+      font-size: 0.9rem;
     }
 
-    .output-bar {
-      background: #e2e8f0;
-      padding: 0.4rem 0.9rem;
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--text-muted);
-      display: flex;
+    /* BOTTOM FLOATING NAVIGATION BAR FOR MOBILE */
+    .mobile-bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: var(--bottom-bar-height);
+      background: #ffffff;
+      border-top: 1px solid var(--border-subtle);
+      box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.06);
+      z-index: 45;
+      padding: 0.4rem 0.75rem;
       align-items: center;
-      gap: 0.4rem;
+      justify-content: space-between;
+      gap: 0.5rem;
     }
 
-    pre.output-block {
-      margin: 0;
-      padding: 0.85rem 1rem;
-      font-family: var(--font-mono);
-      font-size: 0.825rem;
-      line-height: 1.5;
-      color: var(--output-text);
-      overflow-x: auto;
-      white-space: pre-wrap;
-      word-break: break-word;
+    .bottom-nav-btn {
+      flex: 1;
+      min-height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: #f8fafc;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.12s ease;
+      text-decoration: none;
+      user-select: none;
     }
 
-    /* Footer */
+    .bottom-nav-btn:active {
+      background: #e2e8f0;
+      color: var(--text-main);
+      transform: scale(0.97);
+    }
+
+    .bottom-nav-btn.primary {
+      background: var(--primary-subtle);
+      color: var(--primary);
+      border-color: var(--primary-border);
+    }
+
+    /* FOOTER */
     .page-footer {
       background: var(--bg-surface);
       border-top: 1px solid var(--border-subtle);
-      padding: 1.5rem;
+      padding: 1.5rem 1rem;
       text-align: center;
       color: var(--text-light);
       font-size: 0.85rem;
       margin-top: 2rem;
+      width: 100%;
     }
 
     .footer-content {
@@ -605,122 +901,279 @@
       color: #94a3b8;
     }
 
-    /* Toast Notification */
+    /* TOAST NOTIFICATION */
     .toast {
       position: fixed;
-      bottom: 1.5rem;
-      right: 1.5rem;
+      bottom: calc(var(--bottom-bar-height) + 1rem);
+      left: 50%;
+      transform: translateX(-50%) translateY(40px);
       background: #0f172a;
       color: #ffffff;
-      padding: 0.75rem 1.25rem;
+      padding: 0.7rem 1.15rem;
       border-radius: var(--radius-sm);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+      box-shadow: var(--shadow-lg);
       display: flex;
       align-items: center;
-      gap: 0.6rem;
-      font-size: 0.875rem;
+      gap: 0.55rem;
+      font-size: 0.85rem;
       font-weight: 600;
       z-index: 100;
-      transform: translateY(100px);
       opacity: 0;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       pointer-events: none;
+      white-space: nowrap;
+      max-width: 90vw;
     }
 
     .toast.show {
-      transform: translateY(0);
+      transform: translateX(-50%) translateY(0);
       opacity: 1;
     }
 
     .toast-icon {
       color: #4ade80;
+      flex-shrink: 0;
     }
 
-    /* Responsive */
-    @media (max-width: 992px) {
-      .sidebar {
-        position: fixed;
-        left: -100%;
-        top: var(--header-height);
-        height: calc(100vh - var(--header-height));
-        z-index: 40;
-        background: #ffffff;
-        box-shadow: var(--shadow-md);
-        transition: left 0.25s ease-in-out;
-      }
+    /* RESPONSIVE BREAKPOINTS */
 
-      .sidebar.open {
-        left: 0;
+    /* Tablets & Small Laptops (<= 1024px) */
+    @media (max-width: 1024px) {
+      .main-content {
+        padding: 1.25rem 1.25rem 2rem 1.25rem;
+      }
+    }
+
+    /* Tablets & Mobile Devices (<= 768px) */
+    @media (max-width: 768px) {
+      :root {
+        --header-height: 56px;
       }
 
       .menu-toggle {
         display: inline-flex;
       }
 
-      .main-content {
-        padding: 1.25rem 1rem;
-      }
-    }
-
-    @media (max-width: 640px) {
       .top-header {
-        padding: 0 1rem;
+        padding: 0 0.85rem;
       }
 
       .header-titles h1 {
-        font-size: 0.95rem;
+        font-size: 1rem;
       }
 
-      .header-titles p {
+      .header-subtitle {
         display: none;
       }
 
+      .badge-roll {
+        font-size: 0.68rem;
+        padding: 0.15rem 0.45rem;
+      }
+
+      /* Desktop copy all in header hidden, moved to controls bar */
+      .header-actions .btn {
+        display: none;
+      }
+
+      .copy-all-mobile-wrapper {
+        display: block;
+      }
+
+      /* Sidebar becomes off-canvas drawer */
+      .sidebar {
+        position: fixed;
+        left: -100%;
+        top: 0;
+        bottom: 0;
+        height: 100vh;
+        width: min(85vw, 320px);
+        z-index: 60;
+        background: #ffffff;
+        box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+        transition: left 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        padding: 1rem 0.85rem 2rem 0.85rem;
+      }
+
+      .sidebar.open {
+        left: 0;
+      }
+
+      .sidebar-header-mobile {
+        display: flex;
+      }
+
+      /* Navigation items touched up for 44px min height */
+      .nav-item a {
+        min-height: 44px;
+        padding: 0.65rem 0.75rem;
+        font-size: 0.9rem;
+      }
+
+      .main-content {
+        padding: 1rem 0.85rem calc(var(--bottom-bar-height) + 1.5rem) 0.85rem;
+      }
+
       .controls-bar {
+        padding: 0.85rem 0.95rem;
+        margin-bottom: 1.25rem;
+        gap: 0.75rem;
+      }
+
+      .controls-top-row {
         flex-direction: column;
         align-items: stretch;
       }
 
       .search-container {
-        max-width: 100%;
+        min-width: 100%;
+      }
+
+      .search-input {
+        min-height: 44px;
+        font-size: 16px; /* Prevents auto-zoom in iOS Safari */
       }
 
       .view-actions {
-        justify-content: flex-end;
+        width: 100%;
+        display: flex;
+      }
+
+      .view-actions .btn {
+        flex: 1;
+        min-height: 44px;
+      }
+
+      .program-group {
+        margin-bottom: 1.75rem;
+      }
+
+      .program-group-header {
+        margin-bottom: 0.85rem;
+      }
+
+      .program-group-title {
+        font-size: 1.05rem;
+      }
+
+      .program-card {
+        margin-bottom: 1rem;
+        border-radius: var(--radius-sm);
       }
 
       .card-header {
-        flex-direction: column;
-        align-items: stretch;
+        padding: 0.85rem;
       }
 
-      .card-header-actions {
-        justify-content: flex-end;
-        margin-top: 0.5rem;
+      .prog-title {
+        font-size: 0.925rem;
+      }
+
+      .prog-desc {
+        font-size: 0.8rem;
+      }
+
+      .card-header-actions .copy-btn {
+        display: none; /* Mobile uses full-width button at bottom of card */
+      }
+
+      .card-body {
+        padding: 0.85rem;
+      }
+
+      pre.code-block {
+        font-size: 13px;
+        padding: 0.75rem 0.85rem;
+      }
+
+      pre.output-block {
+        font-size: 12.5px;
+        padding: 0.65rem 0.75rem;
+      }
+
+      .mobile-bottom-nav {
+        display: flex;
+      }
+
+      .page-footer {
+        padding-bottom: calc(var(--bottom-bar-height) + 2rem);
+      }
+    }
+
+    /* Small Phones (<= 390px, e.g. iPhone SE, 375px, 320px) */
+    @media (max-width: 390px) {
+      .header-titles h1 {
+        font-size: 0.9rem;
+      }
+
+      .program-group-title {
+        font-size: 0.95rem;
+      }
+
+      .prog-title {
+        font-size: 0.875rem;
+      }
+
+      .main-content {
+        padding-left: 0.65rem;
+        padding-right: 0.65rem;
+      }
+
+      .card-header {
+        padding: 0.75rem 0.65rem;
+      }
+
+      .card-body {
+        padding: 0.75rem 0.65rem;
+      }
+
+      .btn {
+        font-size: 0.8rem;
+      }
+    }
+
+    /* Ultra-narrow (<= 320px) */
+    @media (max-width: 320px) {
+      .top-header {
+        padding: 0 0.5rem;
+      }
+
+      .header-titles h1 {
+        font-size: 0.85rem;
+      }
+
+      .main-content {
+        padding-left: 0.4rem;
+        padding-right: 0.4rem;
       }
     }
   </style>
 </head>
 <body>
 
+  <!-- Drawer Backdrop (Mobile) -->
+  <div class="drawer-backdrop" id="drawerBackdrop" aria-hidden="true"></div>
+
   <!-- Top Header -->
   <header class="top-header">
     <div class="header-brand">
-      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <button class="menu-toggle" id="menuToggle" aria-label="Open lab programs menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
           <line x1="3" y1="12" x2="21" y2="12"></line>
           <line x1="3" y1="6" x2="21" y2="6"></line>
           <line x1="3" y1="18" x2="21" y2="18"></line>
         </svg>
       </button>
       <div class="header-titles">
-        <div style="display: flex; align-items: center; gap: 0.5rem;">
-          <h1>Natural Language Processing Lab</h1>
+        <div class="header-title-row">
+          <h1>NLP LAB</h1>
           <span class="badge-roll">MVJ22CS72</span>
         </div>
-        <p>Offline Lab Programs Reference &amp; Copy Tool</p>
+        <p class="header-subtitle">Natural Language Processing Lab Programs</p>
       </div>
     </div>
 
+    <!-- Desktop Header Action -->
     <div class="header-actions">
       <button class="btn btn-primary" id="copyAllBtn" title="Copy all lab programs to clipboard">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -732,106 +1185,116 @@
     </div>
   </header>
 
-  <!-- App Body Layout -->
+  <!-- App Layout -->
   <div class="app-layout">
 
-    <!-- Sidebar Navigation -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-section-title">Lab Programs</div>
+    <!-- Sidebar / Mobile Navigation Drawer -->
+    <aside class="sidebar" id="sidebar" aria-label="Program navigation">
+      <div class="sidebar-header-mobile">
+        <h2>NLP Programs Menu</h2>
+        <button class="drawer-close-btn" id="drawerCloseBtn" aria-label="Close menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
 
-      <!-- Program 1 -->
+      <div class="sidebar-section-title">PROGRAM 1</div>
       <div class="nav-group">
-        <div class="nav-group-title">
-          <span>Program 1</span>
-        </div>
         <ul class="nav-list">
-          <li class="nav-item"><a href="#prog-1a" class="nav-link" data-target="prog-1a">1A. Tokenization</a></li>
-          <li class="nav-item"><a href="#prog-1b" class="nav-link" data-target="prog-1b">1B. Stopword Elimination</a></li>
-          <li class="nav-item"><a href="#prog-1c" class="nav-link" data-target="prog-1c">1C. Stemming</a></li>
+          <li class="nav-item"><a href="#prog-1a" class="nav-link" data-target="prog-1a">1A Tokenization</a></li>
+          <li class="nav-item"><a href="#prog-1b" class="nav-link" data-target="prog-1b">1B Stopword Elimination</a></li>
+          <li class="nav-item"><a href="#prog-1c" class="nav-link" data-target="prog-1c">1C Stemming</a></li>
         </ul>
       </div>
 
-      <!-- Program 2 -->
+      <div class="sidebar-section-title">PROGRAM 2</div>
       <div class="nav-group">
-        <div class="nav-group-title">
-          <span>Program 2</span>
-        </div>
         <ul class="nav-list">
-          <li class="nav-item"><a href="#prog-2a" class="nav-link" data-target="prog-2a">2A. POS Tagging (v1)</a></li>
-          <li class="nav-item"><a href="#prog-2a-v2" class="nav-link" data-target="prog-2a-v2">2A. POS Tagging (v2)</a></li>
-          <li class="nav-item"><a href="#prog-2b" class="nav-link" data-target="prog-2b">2B. Lemmatization</a></li>
+          <li class="nav-item"><a href="#prog-2a" class="nav-link" data-target="prog-2a">2A POS Tagging (v1)</a></li>
+          <li class="nav-item"><a href="#prog-2a-v2" class="nav-link" data-target="prog-2a-v2">2A POS Tagging (v2)</a></li>
+          <li class="nav-item"><a href="#prog-2b" class="nav-link" data-target="prog-2b">2B Lemmatization</a></li>
         </ul>
       </div>
 
-      <!-- Program 3 -->
+      <div class="sidebar-section-title">PROGRAM 3</div>
       <div class="nav-group">
-        <div class="nav-group-title">
-          <span>Program 3</span>
-        </div>
         <ul class="nav-list">
-          <li class="nav-item"><a href="#prog-3a" class="nav-link" data-target="prog-3a">3A. Chunking (v1)</a></li>
-          <li class="nav-item"><a href="#prog-3a-v2" class="nav-link" data-target="prog-3a-v2">3A. Chunking (v2)</a></li>
-          <li class="nav-item"><a href="#prog-3b" class="nav-link" data-target="prog-3b">3B. Named Entity Recognition</a></li>
+          <li class="nav-item"><a href="#prog-3a" class="nav-link" data-target="prog-3a">3A Chunking (v1)</a></li>
+          <li class="nav-item"><a href="#prog-3a-v2" class="nav-link" data-target="prog-3a-v2">3A Chunking (v2)</a></li>
+          <li class="nav-item"><a href="#prog-3b" class="nav-link" data-target="prog-3b">3B Named Entity Recognition</a></li>
         </ul>
       </div>
 
-      <!-- Program 4 -->
+      <div class="sidebar-section-title">PROGRAM 4</div>
       <div class="nav-group">
-        <div class="nav-group-title">
-          <span>Program 4</span>
-        </div>
         <ul class="nav-list">
-          <li class="nav-item"><a href="#prog-4a" class="nav-link" data-target="prog-4a">4A. TF-IDF</a></li>
-          <li class="nav-item"><a href="#prog-4b" class="nav-link" data-target="prog-4b">4B. CYK Parsing</a></li>
+          <li class="nav-item"><a href="#prog-4a" class="nav-link" data-target="prog-4a">4A TF-IDF</a></li>
+          <li class="nav-item"><a href="#prog-4b" class="nav-link" data-target="prog-4b">4B CYK Parsing</a></li>
         </ul>
       </div>
 
-      <!-- Program 5 -->
+      <div class="sidebar-section-title">PROGRAM 5</div>
       <div class="nav-group">
-        <div class="nav-group-title">
-          <span>Program 5</span>
-        </div>
         <ul class="nav-list">
-          <li class="nav-item"><a href="#prog-5a" class="nav-link" data-target="prog-5a">5A. Unigrams, Bigrams &amp; Trigrams</a></li>
-          <li class="nav-item"><a href="#prog-5b" class="nav-link" data-target="prog-5b">5B. Bigram Probability</a></li>
+          <li class="nav-item"><a href="#prog-5a" class="nav-link" data-target="prog-5a">5A Unigram, Bigram &amp; Trigram</a></li>
+          <li class="nav-item"><a href="#prog-5b" class="nav-link" data-target="prog-5b">5B Bigram Probability</a></li>
         </ul>
       </div>
     </aside>
 
-    <!-- Main Content Area -->
-    <main class="main-content">
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
 
       <!-- Controls Bar -->
       <div class="controls-bar">
-        <div class="search-container">
-          <span class="search-icon">
+        <div class="controls-top-row">
+          <div class="search-container">
+            <span class="search-icon">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </span>
+            <input type="text" id="searchInput" class="search-input" placeholder="Search programs..." autocomplete="off" spellcheck="false">
+            <button id="clearSearch" class="clear-search-btn" aria-label="Clear search">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Copy All Programs Full-Width Button -->
+        <div class="copy-all-mobile-wrapper">
+          <button class="btn btn-primary copy-all-btn-full" id="copyAllBtnMobile">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
             </svg>
-          </span>
-          <input type="text" id="searchInput" class="search-input" placeholder="Search by number, title, or keyword (e.g. 2A, 3A, POS, Chunking, CYK)..." autocomplete="off" spellcheck="false">
-          <button id="clearSearch" class="clear-search-btn" title="Clear search">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
+            <span id="copyAllTextMobile">Copy All Programs</span>
           </button>
         </div>
 
-        <div class="view-actions">
-          <button class="btn btn-outline" id="expandAllBtn" title="Expand all program sections">Expand All</button>
-          <button class="btn btn-outline" id="collapseAllBtn" title="Collapse all program sections">Collapse All</button>
+        <div class="controls-actions-row">
+          <div class="view-actions">
+            <button class="btn btn-outline" id="expandAllBtn" title="Expand all programs">Expand All</button>
+            <button class="btn btn-outline" id="collapseAllBtn" title="Collapse all programs">Collapse All</button>
+          </div>
         </div>
       </div>
 
-      <!-- No Results Placeholder -->
+      <!-- No Results Container -->
       <div class="no-results-box" id="noResults">
         <h3>No matching programs found</h3>
-        <p>Try searching for a different keyword like "token", "pos", "ner", "cyk", "ngram", or program number.</p>
+        <p>Try searching for a different number or keyword like "stemming", "POS", "chunking", or "CYK".</p>
       </div>
 
+      <!-- ========================================== -->
       <!-- PROGRAM 1 -->
+      <!-- ========================================== -->
       <section class="program-group" id="group-prog-1">
         <div class="program-group-header">
           <span class="program-group-badge">PROGRAM 1</span>
@@ -839,13 +1302,13 @@
         </div>
 
         <!-- 1A -->
-        <article class="program-card" id="prog-1a" data-search="1a tokenization word sentence tokenize regex wordpunct_tokenize">
+        <article class="program-card" id="prog-1a" data-search="1a program 1a tokenization word sentence tokenize regex wordpunct_tokenize">
           <div class="card-header" onclick="toggleCard('prog-1a')">
             <div class="card-title-area">
               <span class="prog-pill">1A</span>
               <div class="prog-text">
                 <h3 class="prog-title">TOKENIZATION – WORD AND SENTENCE TOKENIZATION</h3>
-                <p class="prog-desc">Splits text into constituent sentences using regular expressions and breaks sentences into word tokens using NLTK's wordpunct_tokenize without requiring external downloads.</p>
+                <p class="prog-desc">Word and sentence tokenization without external nltk downloads.</p>
               </div>
             </div>
             <div class="card-header-actions" onclick="event.stopPropagation()">
@@ -856,7 +1319,7 @@
                 </svg>
                 <span>Copy Code</span>
               </button>
-              <button class="collapse-chevron" onclick="toggleCard('prog-1a')" title="Toggle section">
+              <button class="collapse-chevron" onclick="toggleCard('prog-1a')" aria-label="Toggle program 1A">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
@@ -866,7 +1329,7 @@
           <div class="card-body">
             <div class="code-container">
               <div class="code-bar">
-                <span class="code-lang-label"><span class="code-lang-dot"></span>Python (Offline)</span>
+                <span class="code-lang-label"><span class="code-lang-dot"></span>Python</span>
               </div>
               <pre class="code-block"><code id="code-prog-1a">import nltk
 import re
@@ -929,17 +1392,26 @@ Sentence 1 : ['Natural', 'Language', 'Processing', 'is', 'interesting']
 Sentence 2 : ['It', 'is', 'used', 'in', 'many', 'applications']
 Sentence 3 : ['NLP', 'helps', 'computers', 'understand', 'human', 'language']</pre>
             </div>
+            <div class="card-footer-action">
+              <button class="btn copy-btn copy-btn-mobile-full" onclick="copyProgramCode('prog-1a')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Code</span>
+              </button>
+            </div>
           </div>
         </article>
 
         <!-- 1B -->
-        <article class="program-card" id="prog-1b" data-search="1b stopword elimination remove_stopwords filter words">
+        <article class="program-card" id="prog-1b" data-search="1b program 1b stopword elimination remove_stopwords filter words">
           <div class="card-header" onclick="toggleCard('prog-1b')">
             <div class="card-title-area">
               <span class="prog-pill">1B</span>
               <div class="prog-text">
                 <h3 class="prog-title">STOPWORD ELIMINATION</h3>
-                <p class="prog-desc">Filters high-frequency common words (stopwords) from input text using a custom predefined offline set, displaying token lists and reduction counts.</p>
+                <p class="prog-desc">Offline stopword removal with token list and reduction count.</p>
               </div>
             </div>
             <div class="card-header-actions" onclick="event.stopPropagation()">
@@ -950,7 +1422,7 @@ Sentence 3 : ['NLP', 'helps', 'computers', 'understand', 'human', 'language']</p
                 </svg>
                 <span>Copy Code</span>
               </button>
-              <button class="collapse-chevron" onclick="toggleCard('prog-1b')" title="Toggle section">
+              <button class="collapse-chevron" onclick="toggleCard('prog-1b')" aria-label="Toggle program 1B">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
@@ -960,7 +1432,7 @@ Sentence 3 : ['NLP', 'helps', 'computers', 'understand', 'human', 'language']</p
           <div class="card-body">
             <div class="code-container">
               <div class="code-bar">
-                <span class="code-lang-label"><span class="code-lang-dot"></span>Python (Offline)</span>
+                <span class="code-lang-label"><span class="code-lang-dot"></span>Python</span>
               </div>
               <pre class="code-block"><code id="code-prog-1b">import nltk
 from nltk.tokenize import wordpunct_tokenize
@@ -1019,17 +1491,26 @@ After Stopword Removal:
 Original Count: 13
 After Removal Count: 8</pre>
             </div>
+            <div class="card-footer-action">
+              <button class="btn copy-btn copy-btn-mobile-full" onclick="copyProgramCode('prog-1b')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Code</span>
+              </button>
+            </div>
           </div>
         </article>
 
         <!-- 1C -->
-        <article class="program-card" id="prog-1c" data-search="1c stemming porterstemmer porter stemmer suffix reduction">
+        <article class="program-card" id="prog-1c" data-search="1c program 1c stemming porterstemmer porter stemmer suffix reduction building build programs program">
           <div class="card-header" onclick="toggleCard('prog-1c')">
             <div class="card-title-area">
               <span class="prog-pill">1C</span>
               <div class="prog-text">
                 <h3 class="prog-title">STEMMING</h3>
-                <p class="prog-desc">Reduces inflected words to their root/stem forms using PorterStemmer algorithm from NLTK, showcasing both full sentence and word-level stemming.</p>
+                <p class="prog-desc">Stemming words to root forms with PorterStemmer.</p>
               </div>
             </div>
             <div class="card-header-actions" onclick="event.stopPropagation()">
@@ -1040,7 +1521,7 @@ After Removal Count: 8</pre>
                 </svg>
                 <span>Copy Code</span>
               </button>
-              <button class="collapse-chevron" onclick="toggleCard('prog-1c')" title="Toggle section">
+              <button class="collapse-chevron" onclick="toggleCard('prog-1c')" aria-label="Toggle program 1C">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
@@ -1048,9 +1529,21 @@ After Removal Count: 8</pre>
             </div>
           </div>
           <div class="card-body">
+            <!-- STEMMING CHECK HIGHLIGHT BOX -->
+            <div class="stemming-check-box">
+              <div class="stemming-check-title">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                STEMMING CHECK
+              </div>
+              <div class="stemming-check-item"><code>building</code> &rarr; <strong>build</strong></div>
+              <div class="stemming-check-item"><code>programs</code> &rarr; <strong>program</strong></div>
+            </div>
+
             <div class="code-container">
               <div class="code-bar">
-                <span class="code-lang-label"><span class="code-lang-dot"></span>Python (Offline)</span>
+                <span class="code-lang-label"><span class="code-lang-dot"></span>Python</span>
               </div>
               <pre class="code-block"><code id="code-prog-1c">import nltk
 from nltk.tokenize import wordpunct_tokenize
@@ -1104,11 +1597,22 @@ Stemming Check:
 building -> build
 programs -> program</pre>
             </div>
+            <div class="card-footer-action">
+              <button class="btn copy-btn copy-btn-mobile-full" onclick="copyProgramCode('prog-1c')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Code</span>
+              </button>
+            </div>
           </div>
         </article>
       </section>
 
+      <!-- ========================================== -->
       <!-- PROGRAM 2 -->
+      <!-- ========================================== -->
       <section class="program-group" id="group-prog-2">
         <div class="program-group-header">
           <span class="program-group-badge">PROGRAM 2</span>
@@ -1116,13 +1620,13 @@ programs -> program</pre>
         </div>
 
         <!-- 2A Version 1 -->
-        <article class="program-card" id="prog-2a" data-search="2a v1 pos part of speech tagging regexptagger regex patterns grammar comprehensive students">
+        <article class="program-card" id="prog-2a" data-search="2a v1 program 2a pos part of speech tagging regexptagger patterns comprehensive the students are studying natural language processing">
           <div class="card-header" onclick="toggleCard('prog-2a')">
             <div class="card-title-area">
               <span class="prog-pill">2A (v1)</span>
               <div class="prog-text">
                 <h3 class="prog-title">PART OF SPEECH TAGGING – VERSION 1 (STANDARD)</h3>
-                <p class="prog-desc">Assigns syntactic grammatical categories (nouns, verbs, determiners, pronouns, prepositions, adjectives) using NLTK's RegexpTagger with comprehensive rules offline.</p>
+                <p class="prog-desc">Standard POS tagging with comprehensive RegexpTagger pattern rules.</p>
               </div>
             </div>
             <div class="card-header-actions" onclick="event.stopPropagation()">
@@ -1133,7 +1637,7 @@ programs -> program</pre>
                 </svg>
                 <span>Copy Code</span>
               </button>
-              <button class="collapse-chevron" onclick="toggleCard('prog-2a')" title="Toggle section">
+              <button class="collapse-chevron" onclick="toggleCard('prog-2a')" aria-label="Toggle program 2A v1">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
@@ -1143,7 +1647,7 @@ programs -> program</pre>
           <div class="card-body">
             <div class="code-container">
               <div class="code-bar">
-                <span class="code-lang-label"><span class="code-lang-dot"></span>Python (Offline)</span>
+                <span class="code-lang-label"><span class="code-lang-dot"></span>Python</span>
               </div>
               <pre class="code-block"><code id="code-prog-2a">import nltk
 from nltk.tag import RegexpTagger
@@ -1209,17 +1713,26 @@ language -> NN
 processing -> VBG
 . -> .</pre>
             </div>
+            <div class="card-footer-action">
+              <button class="btn copy-btn copy-btn-mobile-full" onclick="copyProgramCode('prog-2a')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Code</span>
+              </button>
+            </div>
           </div>
         </article>
 
         <!-- 2A Version 2 -->
-        <article class="program-card" id="prog-2a-v2" data-search="2a v2 pos part of speech tagging regexptagger regex patterns simplified the boy is playing in the park">
+        <article class="program-card" id="prog-2a-v2" data-search="2a v2 program 2a pos part of speech tagging regexptagger simplified the boy is playing in the park">
           <div class="card-header" onclick="toggleCard('prog-2a-v2')">
             <div class="card-title-area">
               <span class="prog-pill prog-pill-alt">2A (v2)</span>
               <div class="prog-text">
                 <h3 class="prog-title">PART OF SPEECH TAGGING – VERSION 2 (SIMPLIFIED)</h3>
-                <p class="prog-desc">A concise, compact alternative implementation of RegexpTagger using tuple unpacking and a focused pattern set with "The boy is playing in the park."</p>
+                <p class="prog-desc">Concise RegexpTagger with tuple unpacking and "The boy is playing in the park."</p>
               </div>
             </div>
             <div class="card-header-actions" onclick="event.stopPropagation()">
@@ -1230,7 +1743,7 @@ processing -> VBG
                 </svg>
                 <span>Copy Code</span>
               </button>
-              <button class="collapse-chevron" onclick="toggleCard('prog-2a-v2')" title="Toggle section">
+              <button class="collapse-chevron" onclick="toggleCard('prog-2a-v2')" aria-label="Toggle program 2A v2">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
@@ -1240,7 +1753,7 @@ processing -> VBG
           <div class="card-body">
             <div class="code-container">
               <div class="code-bar">
-                <span class="code-lang-label"><span class="code-lang-dot" style="background:#a855f7;"></span>Python (Offline - Simplified)</span>
+                <span class="code-lang-label"><span class="code-lang-dot" style="background:#a855f7;"></span>Python</span>
               </div>
               <pre class="code-block"><code id="code-prog-2a-v2">import nltk
 from nltk.tokenize import wordpunct_tokenize
@@ -1296,17 +1809,26 @@ the -> DT
 park -> NN
 . -> NN</pre>
             </div>
+            <div class="card-footer-action">
+              <button class="btn copy-btn copy-btn-mobile-full" onclick="copyProgramCode('prog-2a-v2')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Code</span>
+              </button>
+            </div>
           </div>
         </article>
 
         <!-- 2B -->
-        <article class="program-card" id="prog-2b" data-search="2b lemmatization lemma rules dictionary irregular plural dictionary mapping">
+        <article class="program-card" id="prog-2b" data-search="2b program 2b lemmatization lemma rules dictionary irregular plural the cats are chasing mice">
           <div class="card-header" onclick="toggleCard('prog-2b')">
             <div class="card-title-area">
               <span class="prog-pill">2B</span>
               <div class="prog-text">
                 <h3 class="prog-title">LEMMATIZATION</h3>
-                <p class="prog-desc">Resolves words to meaningful canonical dictionary lemmas (e.g., mice &rarr; mouse, children &rarr; child) using custom rule mappings without requiring WordNet downloads.</p>
+                <p class="prog-desc">Dictionary mapping of words to base root lemmas without WordNet.</p>
               </div>
             </div>
             <div class="card-header-actions" onclick="event.stopPropagation()">
@@ -1317,7 +1839,7 @@ park -> NN
                 </svg>
                 <span>Copy Code</span>
               </button>
-              <button class="collapse-chevron" onclick="toggleCard('prog-2b')" title="Toggle section">
+              <button class="collapse-chevron" onclick="toggleCard('prog-2b')" aria-label="Toggle program 2B">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
@@ -1327,7 +1849,7 @@ park -> NN
           <div class="card-body">
             <div class="code-container">
               <div class="code-bar">
-                <span class="code-lang-label"><span class="code-lang-dot"></span>Python (Offline)</span>
+                <span class="code-lang-label"><span class="code-lang-dot"></span>Python</span>
               </div>
               <pre class="code-block"><code id="code-prog-2b">import nltk
 from nltk.tokenize import wordpunct_tokenize
@@ -1388,11 +1910,22 @@ main()</code></pre>
 Lemmatized Words:
 ['The', 'cat', 'are', 'chasing', 'mouse', '.']</pre>
             </div>
+            <div class="card-footer-action">
+              <button class="btn copy-btn copy-btn-mobile-full" onclick="copyProgramCode('prog-2b')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Code</span>
+              </button>
+            </div>
           </div>
         </article>
       </section>
 
+      <!-- ========================================== -->
       <!-- PROGRAM 3 -->
+      <!-- ========================================== -->
       <section class="program-group" id="group-prog-3">
         <div class="program-group-header">
           <span class="program-group-badge">PROGRAM 3</span>
@@ -1400,13 +1933,13 @@ Lemmatized Words:
         </div>
 
         <!-- 3A Version 1 -->
-        <article class="program-card" id="prog-3a" data-search="3a v1 chunking shallow parsing regexpparser grammar np pp vp noun phrase tagged tagger">
+        <article class="program-card" id="prog-3a" data-search="3a v1 program 3a chunking shallow parsing regexpparser grammar np pp vp the beautiful dog is playing in the park">
           <div class="card-header" onclick="toggleCard('prog-3a')">
             <div class="card-title-area">
               <span class="prog-pill">3A (v1)</span>
               <div class="prog-text">
                 <h3 class="prog-title">CHUNKING – VERSION 1 (WITH DYNAMIC TAGGER)</h3>
-                <p class="prog-desc">Performs full shallow parsing by combining RegexpTagger and RegexpParser to parse sentence tokens into structured constituent phrases (NP, PP, VP) and print the parse tree.</p>
+                <p class="prog-desc">Full chunk parsing with RegexpTagger and RegexpParser tree generation.</p>
               </div>
             </div>
             <div class="card-header-actions" onclick="event.stopPropagation()">
@@ -1417,7 +1950,7 @@ Lemmatized Words:
                 </svg>
                 <span>Copy Code</span>
               </button>
-              <button class="collapse-chevron" onclick="toggleCard('prog-3a')" title="Toggle section">
+              <button class="collapse-chevron" onclick="toggleCard('prog-3a')" aria-label="Toggle program 3A v1">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
@@ -1427,7 +1960,7 @@ Lemmatized Words:
           <div class="card-body">
             <div class="code-container">
               <div class="code-bar">
-                <span class="code-lang-label"><span class="code-lang-dot"></span>Python (Offline)</span>
+                <span class="code-lang-label"><span class="code-lang-dot"></span>Python</span>
               </div>
               <pre class="code-block"><code id="code-prog-3a">import nltk
 from nltk.tag import RegexpTagger
@@ -1494,17 +2027,26 @@ main()</code></pre>
   playing/VBG
   ./.)</pre>
             </div>
+            <div class="card-footer-action">
+              <button class="btn copy-btn copy-btn-mobile-full" onclick="copyProgramCode('prog-3a')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Code</span>
+              </button>
+            </div>
           </div>
         </article>
 
         <!-- 3A Version 2 -->
-        <article class="program-card" id="prog-3a-v2" data-search="3a v2 chunking shallow parsing regexpparser grammar np pp vp pre-tagged tuples the big dog is playing in the park">
+        <article class="program-card" id="prog-3a-v2" data-search="3a v2 program 3a chunking shallow parsing regexpparser grammar pre-tagged tuples the big dog is playing in the park">
           <div class="card-header" onclick="toggleCard('prog-3a-v2')">
             <div class="card-title-area">
               <span class="prog-pill prog-pill-alt">3A (v2)</span>
               <div class="prog-text">
                 <h3 class="prog-title">CHUNKING – VERSION 2 (PRE-TAGGED TUPLES)</h3>
-                <p class="prog-desc">A direct, self-contained RegexpParser implementation that feeds a pre-defined list of (word, tag) tuples directly into chunking grammar without needing tokenization or POS tagging steps.</p>
+                <p class="prog-desc">Direct RegexpParser execution using pre-defined (word, tag) input tuples.</p>
               </div>
             </div>
             <div class="card-header-actions" onclick="event.stopPropagation()">
@@ -1515,7 +2057,7 @@ main()</code></pre>
                 </svg>
                 <span>Copy Code</span>
               </button>
-              <button class="collapse-chevron" onclick="toggleCard('prog-3a-v2')" title="Toggle section">
+              <button class="collapse-chevron" onclick="toggleCard('prog-3a-v2')" aria-label="Toggle program 3A v2">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
@@ -1525,7 +2067,7 @@ main()</code></pre>
           <div class="card-body">
             <div class="code-container">
               <div class="code-bar">
-                <span class="code-lang-label"><span class="code-lang-dot" style="background:#a855f7;"></span>Python (Offline - Pre-tagged)</span>
+                <span class="code-lang-label"><span class="code-lang-dot" style="background:#a855f7;"></span>Python</span>
               </div>
               <pre class="code-block"><code id="code-prog-3a-v2">import nltk
 from nltk.chunk import RegexpParser
@@ -1580,17 +2122,26 @@ main()</code></pre>
   the/DT
   park/NN)</pre>
             </div>
+            <div class="card-footer-action">
+              <button class="btn copy-btn copy-btn-mobile-full" onclick="copyProgramCode('prog-3a-v2')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Code</span>
+              </button>
+            </div>
           </div>
         </article>
 
         <!-- 3B -->
-        <article class="program-card" id="prog-3b" data-search="3b ner named entity recognition person organization gpe">
+        <article class="program-card" id="prog-3b" data-search="3b program 3b ner named entity recognition person organization gpe rahul works at google in bangalore">
           <div class="card-header" onclick="toggleCard('prog-3b')">
             <div class="card-title-area">
               <span class="prog-pill">3B</span>
               <div class="prog-text">
                 <h3 class="prog-title">NAMED ENTITY RECOGNITION</h3>
-                <p class="prog-desc">Identifies proper noun entities such as PERSON, ORGANIZATION, and GPE (Geopolitical Entity/Location) using offline dictionary lookup sets.</p>
+                <p class="prog-desc">Offline dictionary classification for PERSON, ORGANIZATION, and GPE.</p>
               </div>
             </div>
             <div class="card-header-actions" onclick="event.stopPropagation()">
@@ -1601,7 +2152,7 @@ main()</code></pre>
                 </svg>
                 <span>Copy Code</span>
               </button>
-              <button class="collapse-chevron" onclick="toggleCard('prog-3b')" title="Toggle section">
+              <button class="collapse-chevron" onclick="toggleCard('prog-3b')" aria-label="Toggle program 3B">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
@@ -1611,7 +2162,7 @@ main()</code></pre>
           <div class="card-body">
             <div class="code-container">
               <div class="code-bar">
-                <span class="code-lang-label"><span class="code-lang-dot"></span>Python (Offline)</span>
+                <span class="code-lang-label"><span class="code-lang-dot"></span>Python</span>
               </div>
               <pre class="code-block"><code id="code-prog-3b">import nltk
 from nltk.tokenize import wordpunct_tokenize
@@ -1685,11 +2236,22 @@ in -> O
 Bangalore -> GPE
 . -> O</pre>
             </div>
+            <div class="card-footer-action">
+              <button class="btn copy-btn copy-btn-mobile-full" onclick="copyProgramCode('prog-3b')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Code</span>
+              </button>
+            </div>
           </div>
         </article>
       </section>
 
+      <!-- ========================================== -->
       <!-- PROGRAM 4 -->
+      <!-- ========================================== -->
       <section class="program-group" id="group-prog-4">
         <div class="program-group-header">
           <span class="program-group-badge">PROGRAM 4</span>
@@ -1697,13 +2259,13 @@ Bangalore -> GPE
         </div>
 
         <!-- 4A -->
-        <article class="program-card" id="prog-4a" data-search="4a tf-idf tfidf term frequency inverse document frequency vector space">
+        <article class="program-card" id="prog-4a" data-search="4a program 4a tf-idf tfidf term frequency inverse document frequency vector space">
           <div class="card-header" onclick="toggleCard('prog-4a')">
             <div class="card-title-area">
               <span class="prog-pill">4A</span>
               <div class="prog-text">
                 <h3 class="prog-title">TF-IDF</h3>
-                <p class="prog-desc">Computes Term Frequency &ndash; Inverse Document Frequency values for document representations using math.log and custom text preprocessing.</p>
+                <p class="prog-desc">Term Frequency – Inverse Document Frequency calculation across documents.</p>
               </div>
             </div>
             <div class="card-header-actions" onclick="event.stopPropagation()">
@@ -1714,7 +2276,7 @@ Bangalore -> GPE
                 </svg>
                 <span>Copy Code</span>
               </button>
-              <button class="collapse-chevron" onclick="toggleCard('prog-4a')" title="Toggle section">
+              <button class="collapse-chevron" onclick="toggleCard('prog-4a')" aria-label="Toggle program 4A">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
@@ -1724,7 +2286,7 @@ Bangalore -> GPE
           <div class="card-body">
             <div class="code-container">
               <div class="code-bar">
-                <span class="code-lang-label"><span class="code-lang-dot"></span>Python (Offline)</span>
+                <span class="code-lang-label"><span class="code-lang-dot"></span>Python</span>
               </div>
               <pre class="code-block"><code id="code-prog-4a">import nltk
 import math
@@ -1861,17 +2423,26 @@ interesting : 0.1352
 learning : 0.3662
 machine : 0.3662</pre>
             </div>
+            <div class="card-footer-action">
+              <button class="btn copy-btn copy-btn-mobile-full" onclick="copyProgramCode('prog-4a')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Code</span>
+              </button>
+            </div>
           </div>
         </article>
 
         <!-- 4B -->
-        <article class="program-card" id="prog-4b" data-search="4b cyk parsing cocke younger kasami context free grammar cfg chart table validation">
+        <article class="program-card" id="prog-4b" data-search="4b program 4b cyk parsing cocke younger kasami grammar cnf table validation john likes john">
           <div class="card-header" onclick="toggleCard('prog-4b')">
             <div class="card-title-area">
               <span class="prog-pill">4B</span>
               <div class="prog-text">
                 <h3 class="prog-title">CYK PARSING</h3>
-                <p class="prog-desc">Implements Cocke-Younger-Kasami (CYK) bottom-up dynamic programming chart parsing algorithm to check if a sentence is grammatically valid against Chomsky Normal Form (CNF) rules.</p>
+                <p class="prog-desc">Bottom-up CYK chart parser validating sentences against CNF grammars.</p>
               </div>
             </div>
             <div class="card-header-actions" onclick="event.stopPropagation()">
@@ -1882,7 +2453,7 @@ machine : 0.3662</pre>
                 </svg>
                 <span>Copy Code</span>
               </button>
-              <button class="collapse-chevron" onclick="toggleCard('prog-4b')" title="Toggle section">
+              <button class="collapse-chevron" onclick="toggleCard('prog-4b')" aria-label="Toggle program 4B">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
@@ -1892,7 +2463,7 @@ machine : 0.3662</pre>
           <div class="card-body">
             <div class="code-container">
               <div class="code-bar">
-                <span class="code-lang-label"><span class="code-lang-dot"></span>Python (Offline)</span>
+                <span class="code-lang-label"><span class="code-lang-dot"></span>Python</span>
               </div>
               <pre class="code-block"><code id="code-prog-4b">import nltk
 
@@ -1984,11 +2555,22 @@ main()</code></pre>
 
 Sentence is VALID according to the grammar.</pre>
             </div>
+            <div class="card-footer-action">
+              <button class="btn copy-btn copy-btn-mobile-full" onclick="copyProgramCode('prog-4b')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Code</span>
+              </button>
+            </div>
           </div>
         </article>
       </section>
 
+      <!-- ========================================== -->
       <!-- PROGRAM 5 -->
+      <!-- ========================================== -->
       <section class="program-group" id="group-prog-5">
         <div class="program-group-header">
           <span class="program-group-badge">PROGRAM 5</span>
@@ -1996,13 +2578,13 @@ Sentence is VALID according to the grammar.</pre>
         </div>
 
         <!-- 5A -->
-        <article class="program-card" id="prog-5a" data-search="5a unigram bigram trigram n-gram ngrams tuples sequence">
+        <article class="program-card" id="prog-5a" data-search="5a program 5a unigram bigram trigram n-gram ngrams tokens sequence">
           <div class="card-header" onclick="toggleCard('prog-5a')">
             <div class="card-title-area">
               <span class="prog-pill">5A</span>
               <div class="prog-text">
                 <h3 class="prog-title">UNIGRAM, BIGRAM AND TRIGRAM</h3>
-                <p class="prog-desc">Generates continuous contiguous sequences of 1, 2, and 3 tokens (Unigrams, Bigrams, Trigrams) using NLTK's ngrams utility function.</p>
+                <p class="prog-desc">Extraction of Unigram, Bigram, and Trigram word tuples using ngrams utility.</p>
               </div>
             </div>
             <div class="card-header-actions" onclick="event.stopPropagation()">
@@ -2013,7 +2595,7 @@ Sentence is VALID according to the grammar.</pre>
                 </svg>
                 <span>Copy Code</span>
               </button>
-              <button class="collapse-chevron" onclick="toggleCard('prog-5a')" title="Toggle section">
+              <button class="collapse-chevron" onclick="toggleCard('prog-5a')" aria-label="Toggle program 5A">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
@@ -2023,7 +2605,7 @@ Sentence is VALID according to the grammar.</pre>
           <div class="card-body">
             <div class="code-container">
               <div class="code-bar">
-                <span class="code-lang-label"><span class="code-lang-dot"></span>Python (Offline)</span>
+                <span class="code-lang-label"><span class="code-lang-dot"></span>Python</span>
               </div>
               <pre class="code-block"><code id="code-prog-5a">import nltk
 from nltk.tokenize import wordpunct_tokenize
@@ -2079,17 +2661,26 @@ main()</code></pre>
 ('language', 'processing', 'is')
 ('processing', 'is', 'interesting')</pre>
             </div>
+            <div class="card-footer-action">
+              <button class="btn copy-btn copy-btn-mobile-full" onclick="copyProgramCode('prog-5a')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Code</span>
+              </button>
+            </div>
           </div>
         </article>
 
         <!-- 5B -->
-        <article class="program-card" id="prog-5b" data-search="5b bigram probability language model chain rule conditional frequency">
+        <article class="program-card" id="prog-5b" data-search="5b program 5b bigram probability language model chain rule conditional frequency this is my cat">
           <div class="card-header" onclick="toggleCard('prog-5b')">
             <div class="card-title-area">
               <span class="prog-pill">5B</span>
               <div class="prog-text">
                 <h3 class="prog-title">BIGRAM PROBABILITY</h3>
-                <p class="prog-desc">Calculates the conditional probability of a given sentence using Bigram language modeling and frequency counts from training sentences.</p>
+                <p class="prog-desc">Statistical Bigram language modeling and conditional sentence probability.</p>
               </div>
             </div>
             <div class="card-header-actions" onclick="event.stopPropagation()">
@@ -2100,7 +2691,7 @@ main()</code></pre>
                 </svg>
                 <span>Copy Code</span>
               </button>
-              <button class="collapse-chevron" onclick="toggleCard('prog-5b')" title="Toggle section">
+              <button class="collapse-chevron" onclick="toggleCard('prog-5b')" aria-label="Toggle program 5B">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
@@ -2110,7 +2701,7 @@ main()</code></pre>
           <div class="card-body">
             <div class="code-container">
               <div class="code-bar">
-                <span class="code-lang-label"><span class="code-lang-dot"></span>Python (Offline)</span>
+                <span class="code-lang-label"><span class="code-lang-dot"></span>Python</span>
               </div>
               <pre class="code-block"><code id="code-prog-5b">import nltk
 from nltk.tokenize import wordpunct_tokenize
@@ -2221,6 +2812,15 @@ main()</code></pre>
               <pre class="output-block">Sentence: this is my cat
 Bigram Probability: 0.16666666666666666</pre>
             </div>
+            <div class="card-footer-action">
+              <button class="btn copy-btn copy-btn-mobile-full" onclick="copyProgramCode('prog-5b')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy Code</span>
+              </button>
+            </div>
           </div>
         </article>
       </section>
@@ -2228,15 +2828,37 @@ Bigram Probability: 0.16666666666666666</pre>
     </main>
   </div>
 
-  <!-- Toast Message -->
+  <!-- Mobile Bottom Floating Navigation Bar -->
+  <nav class="mobile-bottom-nav" aria-label="Mobile navigation shortcuts">
+    <button class="bottom-nav-btn" id="prevProgBtn" aria-label="Previous program">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+      <span>Prev</span>
+    </button>
+    <button class="bottom-nav-btn primary" id="scrollTopBtn" aria-label="Scroll to top of page">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <polyline points="18 15 12 9 6 15"></polyline>
+      </svg>
+      <span>Top</span>
+    </button>
+    <button class="bottom-nav-btn" id="nextProgBtn" aria-label="Next program">
+      <span>Next</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Toast Notification Message -->
   <div class="toast" id="toast">
-    <svg class="toast-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <svg class="toast-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
       <polyline points="20 6 9 17 4 12"></polyline>
     </svg>
     <span id="toastMsg">Code copied to clipboard!</span>
   </div>
 
-  <!-- Footer -->
+  <!-- Page Footer -->
   <footer class="page-footer">
     <div class="footer-content">
       <p><strong>NLP Lab Programs | MVJ College of Engineering</strong></p>
@@ -2244,8 +2866,25 @@ Bigram Probability: 0.16666666666666666</pre>
     </div>
   </footer>
 
-  <!-- Script logic -->
+  <!-- Application Logic -->
   <script>
+    // List of program card IDs in sequential order for navigation
+    const programCardIds = [
+      'prog-1a',
+      'prog-1b',
+      'prog-1c',
+      'prog-2a',
+      'prog-2a-v2',
+      'prog-2b',
+      'prog-3a',
+      'prog-3a-v2',
+      'prog-3b',
+      'prog-4a',
+      'prog-4b',
+      'prog-5a',
+      'prog-5b'
+    ];
+
     // Copy single program code
     function copyProgramCode(cardId) {
       const codeEl = document.getElementById('code-' + cardId);
@@ -2253,51 +2892,57 @@ Bigram Probability: 0.16666666666666666</pre>
 
       const codeText = codeEl.textContent;
       navigator.clipboard.writeText(codeText).then(() => {
-        const card = document.getElementById(cardId);
-        const copyBtn = card.querySelector('.copy-btn');
-        const originalHtml = copyBtn.innerHTML;
-
-        copyBtn.classList.add('copied');
-        copyBtn.innerHTML = `
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-          <span>Copied!</span>
-        `;
-
-        const label = cardId.replace('prog-', '').toUpperCase().replace('-', ' ');
-        showToast('Program ' + label + ' code copied!');
-
-        setTimeout(() => {
-          copyBtn.classList.remove('copied');
-          copyBtn.innerHTML = originalHtml;
-        }, 2000);
+        applyCopiedState(cardId);
       }).catch(err => {
-        console.error('Failed to copy: ', err);
-        fallbackCopy(codeText);
+        fallbackCopy(codeText, () => applyCopiedState(cardId));
       });
     }
 
-    // Fallback copy for legacy environments
-    function fallbackCopy(text) {
+    function applyCopiedState(cardId) {
+      const card = document.getElementById(cardId);
+      if (!card) return;
+
+      const copyBtns = card.querySelectorAll('.copy-btn');
+      copyBtns.forEach(btn => {
+        const originalHtml = btn.innerHTML;
+        btn.classList.add('copied');
+        btn.innerHTML = `
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>✓ Copied!</span>
+        `;
+
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          btn.innerHTML = originalHtml;
+        }, 2000);
+      });
+
+      const label = cardId.replace('prog-', '').toUpperCase().replace('-', ' ');
+      showToast('Program ' + label + ' copied!');
+    }
+
+    // Fallback copy for environments without full clipboard API permissions
+    function fallbackCopy(text, onSuccess) {
       const textArea = document.createElement("textarea");
       textArea.value = text;
       textArea.style.position = "fixed";
-      textArea.style.top = "0";
-      textArea.style.left = "0";
+      textArea.style.top = "-9999px";
+      textArea.style.left = "-9999px";
       document.body.appendChild(textArea);
       textArea.focus();
       textArea.select();
       try {
-        document.execCommand('copy');
-        showToast('Copied to clipboard!');
+        const successful = document.execCommand('copy');
+        if (successful && onSuccess) onSuccess();
       } catch (err) {
-        alert('Could not copy code automatically. Please copy manually.');
+        alert('Could not copy code automatically. Please select and copy manually.');
       }
       document.body.removeChild(textArea);
     }
 
-    // Toast function
+    // Toast notification
     function showToast(message) {
       const toast = document.getElementById('toast');
       const toastMsg = document.getElementById('toastMsg');
@@ -2318,8 +2963,17 @@ Bigram Probability: 0.16666666666666666</pre>
       }
     }
 
-    // Copy All Programs
-    document.getElementById('copyAllBtn').addEventListener('click', function() {
+    // Expand & Collapse All
+    document.getElementById('expandAllBtn').addEventListener('click', function() {
+      document.querySelectorAll('.program-card').forEach(card => card.classList.remove('collapsed'));
+    });
+
+    document.getElementById('collapseAllBtn').addEventListener('click', function() {
+      document.querySelectorAll('.program-card').forEach(card => card.classList.add('collapsed'));
+    });
+
+    // Copy All Programs Functionality
+    function executeCopyAll() {
       const programs = [
         { id: '1A', name: 'TOKENIZATION – WORD AND SENTENCE TOKENIZATION', elementId: 'code-prog-1a' },
         { id: '1B', name: 'STOPWORD ELIMINATION', elementId: 'code-prog-1b' },
@@ -2348,41 +3002,35 @@ Bigram Probability: 0.16666666666666666</pre>
         }
       });
 
-      const btn = document.getElementById('copyAllBtn');
-      const textSpan = document.getElementById('copyAllText');
-      const originalText = textSpan.textContent;
-
-      navigator.clipboard.writeText(fullBundle).then(() => {
-        textSpan.textContent = 'All Programs Copied!';
-        btn.style.backgroundColor = '#16a34a';
-        showToast('All programs copied to clipboard!');
+      const handleSuccess = () => {
+        showToast('All 11 programs copied!');
+        const textDesktop = document.getElementById('copyAllText');
+        const textMobile = document.getElementById('copyAllTextMobile');
+        if (textDesktop) textDesktop.textContent = '✓ All Programs Copied!';
+        if (textMobile) textMobile.textContent = '✓ All Programs Copied!';
 
         setTimeout(() => {
-          textSpan.textContent = originalText;
-          btn.style.backgroundColor = '';
-        }, 2500);
-      }).catch(err => {
-        fallbackCopy(fullBundle);
+          if (textDesktop) textDesktop.textContent = 'Copy All Programs';
+          if (textMobile) textMobile.textContent = 'Copy All Programs';
+        }, 2200);
+      };
+
+      navigator.clipboard.writeText(fullBundle).then(handleSuccess).catch(err => {
+        fallbackCopy(fullBundle, handleSuccess);
       });
-    });
+    }
 
-    // Expand & Collapse All
-    document.getElementById('expandAllBtn').addEventListener('click', function() {
-      document.querySelectorAll('.program-card').forEach(card => card.classList.remove('collapsed'));
-    });
+    document.getElementById('copyAllBtn').addEventListener('click', executeCopyAll);
+    document.getElementById('copyAllBtnMobile').addEventListener('click', executeCopyAll);
 
-    document.getElementById('collapseAllBtn').addEventListener('click', function() {
-      document.querySelectorAll('.program-card').forEach(card => card.classList.add('collapsed'));
-    });
-
-    // Search and filtering
+    // Search and Filtering
     const searchInput = document.getElementById('searchInput');
     const clearSearchBtn = document.getElementById('clearSearch');
     const noResultsBox = document.getElementById('noResults');
 
     searchInput.addEventListener('input', function() {
       const q = this.value.toLowerCase().trim();
-      clearSearchBtn.style.display = q.length > 0 ? 'block' : 'none';
+      clearSearchBtn.style.display = q.length > 0 ? 'inline-flex' : 'none';
 
       let visibleCount = 0;
       const cards = document.querySelectorAll('.program-card');
@@ -2399,7 +3047,7 @@ Bigram Probability: 0.16666666666666666</pre>
         }
       });
 
-      // Show/hide section headers if all cards in group are hidden
+      // Show or hide entire program group if all children are hidden
       document.querySelectorAll('.program-group').forEach(group => {
         const visibleInGroup = group.querySelectorAll('.program-card[style="display: block;"]').length;
         if (q === '') {
@@ -2420,48 +3068,94 @@ Bigram Probability: 0.16666666666666666</pre>
       searchInput.focus();
     });
 
-    // Mobile Sidebar toggle
+    // Mobile Drawer Navigation (Open, Close, Backdrop)
     const menuToggle = document.getElementById('menuToggle');
     const sidebar = document.getElementById('sidebar');
+    const drawerBackdrop = document.getElementById('drawerBackdrop');
+    const drawerCloseBtn = document.getElementById('drawerCloseBtn');
 
-    menuToggle.addEventListener('click', function() {
-      sidebar.classList.toggle('open');
-    });
+    function openDrawer() {
+      sidebar.classList.add('open');
+      drawerBackdrop.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
 
-    // Close sidebar on navigation click (mobile) & scroll highlight
+    function closeDrawer() {
+      sidebar.classList.remove('open');
+      drawerBackdrop.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    menuToggle.addEventListener('click', openDrawer);
+    drawerCloseBtn.addEventListener('click', closeDrawer);
+    drawerBackdrop.addEventListener('click', closeDrawer);
+
+    // Navigate to Card
+    function navigateToCard(cardId) {
+      closeDrawer();
+      const targetCard = document.getElementById(cardId);
+      if (targetCard) {
+        // Expand card if currently collapsed
+        targetCard.classList.remove('collapsed');
+
+        // Smooth scroll
+        targetCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // Highlight flash
+        document.querySelectorAll('.program-card').forEach(c => c.classList.remove('highlight'));
+        targetCard.classList.add('highlight');
+        setTimeout(() => {
+          targetCard.classList.remove('highlight');
+        }, 2000);
+      }
+    }
+
     document.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', function(e) {
-        if (window.innerWidth <= 992) {
-          sidebar.classList.remove('open');
-        }
-
+        e.preventDefault();
         const targetId = this.getAttribute('data-target');
-        const targetCard = document.getElementById(targetId);
-
-        if (targetCard) {
-          // If card is collapsed, expand it
-          targetCard.classList.remove('collapsed');
-
-          // Highlight effect
-          document.querySelectorAll('.program-card').forEach(c => c.classList.remove('highlight'));
-          targetCard.classList.add('highlight');
-
-          setTimeout(() => {
-            targetCard.classList.remove('highlight');
-          }, 2000);
-        }
+        navigateToCard(targetId);
       });
     });
 
-    // Highlight active link based on scroll position
+    // Bottom Navigation Bar Logic (Prev / Next / Top)
+    function getCurrentVisibleCardIndex() {
+      const scrollPos = window.scrollY + 120;
+      let currentIndex = 0;
+      for (let i = 0; i < programCardIds.length; i++) {
+        const card = document.getElementById(programCardIds[i]);
+        if (card && card.offsetTop <= scrollPos) {
+          currentIndex = i;
+        }
+      }
+      return currentIndex;
+    }
+
+    document.getElementById('prevProgBtn').addEventListener('click', function() {
+      const idx = getCurrentVisibleCardIndex();
+      const targetIdx = Math.max(0, idx - 1);
+      navigateToCard(programCardIds[targetIdx]);
+    });
+
+    document.getElementById('nextProgBtn').addEventListener('click', function() {
+      const idx = getCurrentVisibleCardIndex();
+      const targetIdx = Math.min(programCardIds.length - 1, idx + 1);
+      navigateToCard(programCardIds[targetIdx]);
+    });
+
+    document.getElementById('scrollTopBtn').addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Active Navigation Highlight on Scroll
     window.addEventListener('scroll', () => {
-      const scrollPos = window.scrollY + 100;
-      const cards = document.querySelectorAll('.program-card');
+      const scrollPos = window.scrollY + 110;
       let currentId = '';
 
-      cards.forEach(card => {
-        if (card.offsetTop <= scrollPos) {
-          currentId = card.id;
+      programCardIds.forEach(id => {
+        const card = document.getElementById(id);
+        if (card && card.offsetTop <= scrollPos) {
+          currentId = id;
         }
       });
 
@@ -2472,7 +3166,7 @@ Bigram Probability: 0.16666666666666666</pre>
           link.classList.remove('active');
         }
       });
-    });
+    }, { passive: true });
   </script>
 </body>
 </html>
