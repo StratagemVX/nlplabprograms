@@ -43,3 +43,19 @@ Open `index.html` in any web browser, or navigate directly via GitHub Pages for 
 - **Institution:** Department of Computer Science & Engineering, MVJ College of Engineering
 - **GitHub:** [https://github.com/StratagemVX](https://github.com/StratagemVX)
 - **Portfolio:** [https://chethan-kumar-portfolio.vercel.app/](https://chethan-kumar-portfolio.vercel.app/)
+
+## Verification and maintenance
+
+Keep program descriptions, sample outputs, prerequisites, and expected results aligned with the actual lab source files.
+
+### Execution and verification
+
+No root package manifest was available during this pass. Identify language/runtime versions and commands from the actual source files and CI configuration before running the programs.
+
+### Contribution and security notes
+
+- Preserve syllabus/program numbering where it is part of the course requirements.
+- Include input, output, prerequisites, and reproducible steps for each program.
+- Do not commit personal credentials, private keys, or local environment files.
+- Use placeholder-only configuration examples and keep secrets outside source control.
+- Verify code with representative inputs before merging changes.
