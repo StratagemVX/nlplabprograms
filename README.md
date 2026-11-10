@@ -1,36 +1,45 @@
 # Natural Language Processing Lab Programs — MVJ22CS72 Reference Suite
 
-> Complete, verified web reference platform for VTU / MVJ Natural Language Processing Laboratory (Course Code: MVJ22CS72) with syntax highlighting and one-click code copying.
+> Complete, verified web reference platform for VTU / MVJ Natural Language Processing Laboratory (Course Code: MVJ22CS72) with syntax highlighting, one-click code copying, and mobile-optimized styling.
+
+[![HTML5](https://img.shields.io/badge/HTML5-Semantic-orange.svg)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+[![CSS3](https://img.shields.io/badge/CSS3-Mobile--Responsive-blue.svg)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+[![Python](https://img.shields.io/badge/Python-NLTK%20%7C%20spaCy-yellow.svg)](https://www.nltk.org/)
 
 ---
 
-## 1. Project Title
-**NLP Lab Programs (MVJ22CS72)** (`nlplabprograms`) — Interactive Natural Language Processing Laboratory Code Reference.
+## Curriculum Overview
 
-## 2. Project Overview
-A responsive, high-performance web reference application providing students and laboratory instructors with immediate access to verified Python source code implementations for the complete 7th-semester Natural Language Processing laboratory curriculum (MVJ22CS72).
+This repository provides students and laboratory evaluators with verified, tested Python implementations for all 10 laboratory exercises mandated by the Visvesvaraya Technological University (VTU) 7th-semester Natural Language Processing curriculum (Course Code: MVJ22CS72).
 
-## 3. Syllabus Coverage (10 Laboratory Exercises)
-1. **Program 1:** Text Preprocessing, Tokenization, and Stopword Filtering using NLTK.
-2. **Program 2:** Stemming (PorterStemmer, LancasterStemmer) and Lemmatization (WordNetLemmatizer).
-3. **Program 3:** Part-of-Speech (POS) Tagging and Syntactic Dependency Chunking.
-4. **Program 4:** N-gram Language Modeling and Frequency Distribution Estimation.
-5. **Program 5:** Named Entity Recognition (NER) with spaCy and NLTK.
-6. **Program 6:** Bag-of-Words (BoW) & TF-IDF Vectorization for Document Representation.
-7. **Program 7:** Sentiment Classification using Naive Bayes and Logistic Regression.
-8. **Program 8:** Word Embeddings (Word2Vec / Skip-Gram & CBOW) Semantic Vector Math.
-9. **Program 9:** Sequence-to-Sequence Text Translation & Summarization Pipeline.
-10. **Program 10:** Contextual Word Representations with Pretrained Transformer Tokenizers.
+---
 
-## 4. Key Features
-- **One-Click Code Copy:** Instant clipboard synchronization with toast notifications.
-- **Responsive Mobile Layout:** Clean typography optimized for reading code on mobile screens.
-- **Zero Dependencies:** Pure HTML5 and CSS3; loads instantly offline.
+## Laboratory Program Index
 
-## 5. Execution Instructions
-Open `index.html` in any web browser, or navigate directly via GitHub Pages.
+| Program # | Topic / Algorithm | Core Libraries | Description |
+|:---:|---|---|---|
+| **1** | Tokenization & Preprocessing | `nltk.tokenize` | Sentence and word boundary tokenization, punctuation removal, stopword filtering. |
+| **2** | Stemming & Lemmatization | `nltk.stem` | Comparative morphological analysis using PorterStemmer, LancasterStemmer, and WordNetLemmatizer. |
+| **3** | POS Tagging & Chunking | `nltk.pos_tag` | Part-of-Speech tagging and regular expression grammar chunking for noun phrase extraction. |
+| **4** | N-Gram Language Modeling | `nltk.util.ngrams` | Bigram and trigram frequency distribution modeling and next-word probability estimation. |
+| **5** | Named Entity Recognition | `spacy` / `nltk.ne_chunk` | Extraction of named entities (Persons, Organizations, Geo-political entities). |
+| **6** | TF-IDF & BoW Vectorization | `sklearn.feature_extraction` | Bag-of-Words and Term Frequency-Inverse Document Frequency document vectorization. |
+| **7** | Sentiment Classification | `sklearn.naive_bayes` | Supervised sentiment analysis using Multinomial Naive Bayes on movie review corpora. |
+| **8** | Word Embeddings (Word2Vec) | `gensim.models` | Continuous Bag of Words (CBOW) and Skip-Gram semantic vector representations. |
+| **9** | Sequence Translation Pipeline | `transformers` / `seq2seq` | Text summarization and sequence-to-sequence translation fundamentals. |
+| **10** | Transformer Tokenizers | `transformers.AutoTokenizer` | Subword tokenization and positional encoding with pretrained Hugging Face models. |
 
-## 6. Author & Project Information
+---
+
+## Execution Instructions
+
+Open `index.html` in any web browser, or navigate directly via GitHub Pages for instant offline code reference.
+
+---
+
+## Contributor Attribution & Profile
+
 - **Curator:** Chethan Kumar B S (`StratagemVX`)
-- **Institution:** MVJ College of Engineering, Bengaluru
-- **Department:** Computer Science & Engineering
+- **Institution:** Department of Computer Science & Engineering, MVJ College of Engineering
+- **GitHub:** [https://github.com/StratagemVX](https://github.com/StratagemVX)
+- **Portfolio:** [https://chethan-kumar-portfolio.vercel.app/](https://chethan-kumar-portfolio.vercel.app/)
