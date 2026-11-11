@@ -1,45 +1,60 @@
-# Natural Language Processing Lab Programs — MVJ22CS72 Reference Suite
+# Natural Language Processing Lab Programs (`nlplabprograms`) — MVJ22CS72 Reference
 
-> Complete, verified web reference platform for VTU / MVJ Natural Language Processing Laboratory (Course Code: MVJ22CS72) with syntax highlighting, one-click code copying, and mobile-optimized styling.
+> Single-file static HTML/CSS/JS web reference containing syntax-highlighted NLTK and Python NLP laboratory implementations for MVJ College of Engineering (`MVJ22CS72`) with search filtering and one-click code copy buttons.
 
-[![HTML5](https://img.shields.io/badge/HTML5-Semantic-orange.svg)](https://developer.mozilla.org/en-US/docs/Web/HTML)
-[![CSS3](https://img.shields.io/badge/CSS3-Mobile--Responsive-blue.svg)](https://developer.mozilla.org/en-US/docs/Web/CSS)
-[![Python](https://img.shields.io/badge/Python-NLTK%20%7C%20spaCy-yellow.svg)](https://www.nltk.org/)
-
----
-
-## Curriculum Overview
-
-This repository provides students and laboratory evaluators with verified, tested Python implementations for all 10 laboratory exercises mandated by the Visvesvaraya Technological University (VTU) 7th-semester Natural Language Processing curriculum (Course Code: MVJ22CS72).
+[![HTML5](https://img.shields.io/badge/HTML5-Static%20Web-orange.svg)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+[![Python](https://img.shields.io/badge/Python-NLTK-yellow.svg)](https://www.nltk.org/)
 
 ---
 
-## Laboratory Program Index
+## Executive Overview
 
-| Program # | Topic / Algorithm | Core Libraries | Description |
-|:---:|---|---|---|
-| **1** | Tokenization & Preprocessing | `nltk.tokenize` | Sentence and word boundary tokenization, punctuation removal, stopword filtering. |
-| **2** | Stemming & Lemmatization | `nltk.stem` | Comparative morphological analysis using PorterStemmer, LancasterStemmer, and WordNetLemmatizer. |
-| **3** | POS Tagging & Chunking | `nltk.pos_tag` | Part-of-Speech tagging and regular expression grammar chunking for noun phrase extraction. |
-| **4** | N-Gram Language Modeling | `nltk.util.ngrams` | Bigram and trigram frequency distribution modeling and next-word probability estimation. |
-| **5** | Named Entity Recognition | `spacy` / `nltk.ne_chunk` | Extraction of named entities (Persons, Organizations, Geo-political entities). |
-| **6** | TF-IDF & BoW Vectorization | `sklearn.feature_extraction` | Bag-of-Words and Term Frequency-Inverse Document Frequency document vectorization. |
-| **7** | Sentiment Classification | `sklearn.naive_bayes` | Supervised sentiment analysis using Multinomial Naive Bayes on movie review corpora. |
-| **8** | Word Embeddings (Word2Vec) | `gensim.models` | Continuous Bag of Words (CBOW) and Skip-Gram semantic vector representations. |
-| **9** | Sequence Translation Pipeline | `transformers` / `seq2seq` | Text summarization and sequence-to-sequence translation fundamentals. |
-| **10** | Transformer Tokenizers | `transformers.AutoTokenizer` | Subword tokenization and positional encoding with pretrained Hugging Face models. |
+**`nlplabprograms`** is a self-contained browser reference (`index.html`) presenting Python/NLTK implementations across 5 structured NLP units for the **MVJ22CS72** laboratory curriculum. Users can filter topics, jump across menu sections, and copy program source snippets directly.
+
+> **Quality & CI Status (`main` vs. Open Draft PR #2 — `maintenance/repository-quality-improvements`):**
+> - **PR #2** adds `.gitignore`, static site verification (`tests/verify_site.mjs`), and `.github/workflows/quality.yml` (verified passing in GitHub Actions).
 
 ---
 
-## Execution Instructions
+## Implemented Program Index (`index.html`)
 
-Open `index.html` in any web browser, or navigate directly via GitHub Pages for instant offline code reference.
+1. **Text Preprocessing Fundamentals**
+   - Tokenization — Word and Sentence Tokenization
+   - Stopword Elimination
+   - Stemming
+2. **Part of Speech Tagging & Lemmatization**
+   - Part of Speech Tagging — Version 1 (Standard) & Version 2 (Simplified)
+   - Lemmatization
+3. **Chunking & Named Entity Recognition**
+   - Chunking — Version 1 (Dynamic Tagger) & Version 2 (Pre-Tagged Tuples)
+   - Named Entity Recognition
+4. **Information Retrieval & Parsing**
+   - TF-IDF
+   - CYK Parsing
+5. **N-Gram Modeling & Language Probability**
+   - Unigram, Bigram, and Trigram
+   - Bigram Probability
 
 ---
 
-## Contributor Attribution & Profile
+## Usage & Verification
+
+```bash
+git clone https://github.com/StratagemVX/nlplabprograms.git
+cd nlplabprograms
+
+# Open index.html in a browser or serve locally:
+python -m http.server 8000
+
+# Run static HTML/JS/asset verification (PR #2)
+node tests/verify_site.mjs
+```
+
+---
+
+## Contributor Attribution
 
 - **Curator:** Chethan Kumar B S (`StratagemVX`)
-- **Institution:** Department of Computer Science & Engineering, MVJ College of Engineering
+- **Earlier Styling Variant:** [StratagemVX/importnltklabprograms](https://github.com/StratagemVX/importnltklabprograms) (private)
 - **GitHub:** [https://github.com/StratagemVX](https://github.com/StratagemVX)
 - **Portfolio:** [https://chethan-kumar-portfolio.vercel.app/](https://chethan-kumar-portfolio.vercel.app/)
